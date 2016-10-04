@@ -1,5 +1,5 @@
-import string
-import sys
+import string, sys
+from collections import Counter
 
 def word_count(file_name):
     """ Create function to count occurances of each words in file_name"""
@@ -8,7 +8,8 @@ def word_count(file_name):
     
     text = open(file_name)
 
-    word_tally = {} # Empty dictionary
+    #word_tally = {} # Empty dictionary
+    word_tally = Counter() # Empty Counter
 
     for line in text:
         words = line.rstrip().split(' ') # Split each line into separate words
@@ -17,10 +18,14 @@ def word_count(file_name):
             # Make word all lowercase, and remove punctuation
             word = word.lower().rstrip(string.punctuation) 
             # Store word in dictionary, along with corresponding count
-            word_tally[word] = word_tally.get(word, 0) + 1
+            #word_tally[word] = word_tally.get(word, 0) + 1
+            # Store word with in Counter, increase count by 1
+            word_tally.update({word:+1})
 
-    for entry in word_tally.iteritems(): # Each 'entry' is a tuple in a new list
-        print '%s %d' %  (entry[0], entry[1]) # Print information in each tuple
+    # for entry in word_tally.iteritems(): # Each 'entry' is a tuple in a new list
+    #     print '%s %d' %  (entry[0], entry[1]) # Print information in each tuple
+    for entry in word_tally:
+        print '%s %d' % (entry, word_tally[entry]) # Print word and corresponding tally in Counter
 
     return word_tally # Return dictionary so you can use it in other functions
 
